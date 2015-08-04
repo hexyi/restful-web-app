@@ -1,20 +1,23 @@
 'use strict';
 /**
  * @ngdoc overview
- * @name sbAdminApp
+ * @name webSiteApp
  * @description
- * # sbAdminApp
+ * # webSiteApp
  *
  * Main module of the application.
  */
 angular
-  .module('sbAdminApp', [
+  .module('webSiteApp', [
     'oc.lazyLoad',
     'ui.router',
     'ui.bootstrap',
     'angular-loading-bar',
   ])
-  .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
+  .config([
+      '$stateProvider',
+      '$urlRouterProvider',
+      '$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
     
     $ocLazyLoadProvider.config({
       debug:false,
@@ -31,7 +34,7 @@ angular
             loadMyDirectives:function($ocLazyLoad){
                 return $ocLazyLoad.load(
                 {
-                    name:'sbAdminApp',
+                    name:'webSiteApp',
                     files:[
                     'scripts/directives/header/resize.js',
                     'scripts/directives/header/header.js',
@@ -82,26 +85,16 @@ angular
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'sbAdminApp',
+              name:'webSiteApp',
               files:[
               'scripts/controllers/main.js',
-              'scripts/directives/timeline/timeline.js',
               'scripts/directives/notifications/notifications.js',
-              'scripts/directives/chat/chat.js',
               'scripts/directives/dashboard/stats/stats.js'
               ]
             })
           }
         }
       })
-      .state('dashboard.form',{
-        templateUrl:'views/form.html',
-        url:'/form'
-    })
-      .state('dashboard.blank',{
-        templateUrl:'views/pages/blank.html',
-        url:'/blank'
-    })
       .state('login',{
         templateUrl:'views/pages/login.html',
         url:'/login'
@@ -120,40 +113,10 @@ angular
               ]
             }),
             $ocLazyLoad.load({
-                name:'sbAdminApp',
+                name:'webSiteApp',
                 files:['scripts/controllers/chartContoller.js']
             })
           }
         }
     })
-      .state('dashboard.table',{
-        templateUrl:'views/table.html',
-        url:'/table'
-    })
-      .state('dashboard.panels-wells',{
-          templateUrl:'views/ui-elements/panels-wells.html',
-          url:'/panels-wells'
-      })
-      .state('dashboard.buttons',{
-        templateUrl:'views/ui-elements/buttons.html',
-        url:'/buttons'
-    })
-      .state('dashboard.notifications',{
-        templateUrl:'views/ui-elements/notifications.html',
-        url:'/notifications'
-    })
-      .state('dashboard.typography',{
-       templateUrl:'views/ui-elements/typography.html',
-       url:'/typography'
-   })
-      .state('dashboard.icons',{
-       templateUrl:'views/ui-elements/icons.html',
-       url:'/icons'
-   })
-      .state('dashboard.grid',{
-       templateUrl:'views/ui-elements/grid.html',
-       url:'/grid'
-   })
   }]);
-
-    

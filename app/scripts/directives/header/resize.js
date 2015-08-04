@@ -3,7 +3,7 @@
 //loads the correct sidebar on window load,
 //collapses the sidebar on window resize.
 // sets the min-height of #page-wrapper to window size
-angular.module('sbAdminApp')
+angular.module('webSiteApp')
 .directive('resize', ['$window', function($window) {
   return {
     restrict: 'A',
