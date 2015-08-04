@@ -33,6 +33,7 @@ angular
                 {
                     name:'sbAdminApp',
                     files:[
+                    'scripts/directives/header/resize.js',
                     'scripts/directives/header/header.js',
                     'scripts/directives/header/header-notification/header-notification.js',
                     'scripts/directives/sidebar/sidebar.js',
