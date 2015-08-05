@@ -8,7 +8,7 @@
  */
 
 angular.module('webSiteApp')
-  .directive('sidebar',['$location',function() {
+  .directive('sidebar',['$state',function($state) {
     return {
       templateUrl:'scripts/directives/sidebar/sidebar.html',
       restrict: 'E',
@@ -17,23 +17,18 @@ angular.module('webSiteApp')
       },
       controller:function($scope){
         $scope.selectedMenu = 'dashboard';
-        $scope.collapseVar = 0;
-        $scope.multiCollapseVar = 0;
+        $scope.collapseVar = -1;
+        $scope.$state = $state;
 
-        $scope.check = function(x){
-
+        $scope.toggle = function(x){
           if(x==$scope.collapseVar)
             $scope.collapseVar = 0;
           else
             $scope.collapseVar = x;
         };
 
-        $scope.multiCheck = function(y){
-
-          if(y==$scope.multiCollapseVar)
-            $scope.multiCollapseVar = 0;
-          else
-            $scope.multiCollapseVar = y;
+        $scope.isClose = function(num) {
+          return $scope.collapseVar != num;
         };
       }
     }

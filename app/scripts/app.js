@@ -100,8 +100,8 @@ angular
       RestangularProvider.setDefaultHttpFields({withCredentials: true});
 
       $ocLazyLoadProvider.config({
-        debug:true,
-        events:true,
+        debug:false,
+        events:true
       });
 
       $urlRouterProvider.otherwise('/dashboard/home');
@@ -146,13 +146,6 @@ angular
           templateUrl:'views/pages/login.html',
           url:'/login',
           controller : 'LoginCtrl'
-      }).state('dashboard.roles',{
-          abstract: true,
-          template: '<ui-view/>',
-          url:'/roles',
-      }).state('dashboard.roles.list',{
-          templateUrl:'views/pages/login.html',
-          url:'/list',
       }).state('dashboard.users', {
           abstract: true,
           url: '/users',

@@ -5,50 +5,17 @@
       <li ui-sref-active="active">
       <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> 管理控制台</a>
       </li>
-      <li ng-class="{active: collapseVar==1}">
-        <a href="" ng-click="check(1)"><i class="fa fa-wrench fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level" collapse="collapseVar!=1">
-          <li ng-class="{active: multiCollapseVar==1}">
-            <a href="" ng-click="multiCheck(1)">用户管理 <span class="fa arrow"></span></a>
-            <ul class="nav nav-third-level" collapse="multiCollapseVar!=1">
-              <li ui-sref-active="active">
-              <a ui-sref="dashboard.users.list">用户列表</a>
-              </li>
-              <li ui-sref-active="active">
-              <a ui-sref="dashboard.users.create">新建用户</a>
-              </li>
-            </ul>
+      <li ng-class="{active: $state.includes('**.users.**')}">
+        <a href="" ng-click="toggle(1)"><i class="fa fa-wrench fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level" collapse="isClose(1)">
+          <li ng-class="{active: $state.includes('**.users.**')}">
+            <a ui-sref="dashboard.users.list">用户管理</a>
           </li>
         </ul>
         <!-- /.nav-second-level -->
       </li>
       <li ui-sref-active="active">
       <a ui-sref="dashboard.chart"><i class="fa fa-bar-chart-o fa-fw"></i> 表格<span></span></a>
-      </li>
-      <li ng-class="{active: collapseVar==2}">
-        <a href="" ng-click="check(2)"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span
-            class="fa arrow"></span></a>
-        <ul class="nav nav-second-level" collapse="collapseVar!=2">
-          <li>
-          <a href="">Second Level Item</a>
-          </li>
-          <li>
-          <a href="">Second Level Item</a>
-          </li>
-          <li ng-init="third=!third" ng-class="{active: multiCollapseVar==3}">
-          <a href="" ng-click="multiCheck(3)">Third Level <span class="fa arrow"></span></a>
-          <ul class="nav nav-third-level" collapse="multiCollapseVar!=3">
-            <li>
-            <a href="">Third Level Item</a>
-            </li>
-            <li>
-            <a href="">Third Level Item</a>
-            </li>
-          </ul>
-          <!-- /.nav-third-level -->
-          </li>
-        </ul>
-      <!-- /.nav-second-level -->
       </li>
     </ul>
   </div>
