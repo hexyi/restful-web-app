@@ -146,45 +146,42 @@ angular
           templateUrl:'views/pages/login.html',
           url:'/login',
           controller : 'LoginCtrl'
+      }).state('dashboard.roles',{
+          abstract: true,
+          template: '<ui-view/>',
+          url:'/roles',
+      }).state('dashboard.roles.list',{
+          templateUrl:'views/pages/login.html',
+          url:'/list',
       }).state('dashboard.users', {
-        url : '/users',
-        templateUrl : 'views/sys/users/list.html',
-        controller : 'UserListCtrl',
-        resolve : {
-          rolesRes : ['Roles', function(Roles) {
-            return Roles.getList();
-          }],
-          orgsRes :['Organizations', function(Organizations) {
-            return Organizations.getList();
-          }]
-        }
-      }).state('dashboard.usersDetail', {
-        url : '/users/update/:id',
-        templateUrl : 'views/sys/users/edit.html',
-        controller : 'UserDetailCtrl',
-        resolve : {
-          usersRes : ['Users', '$stateParams', function(Users, $stateParams) {
-            return Users.one($stateParams.id).get();
-          }],
-          rolesRes : ['Roles', function(Roles) {
-            return Roles.getList();
-          }],
-          orgsRes :['Organizations', function(Organizations) {
-            return Organizations.getList();
-          }]
-        }
-      }).state('dashboard.usersCreate', {
-        url : '/users/create',
-        templateUrl : 'views/sys/users/edit.html',
-        controller : 'UserCreationCtrl',
-        resolve : {
-          rolesRes : ['Roles', function(Roles) {
-            return Roles.getList();
-          }],
-          orgsRes :['Organizations', function(Organizations) {
-            return Organizations.getList();
-          }]
-        }
+          abstract: true,
+          url: '/users',
+          template: '<ui-view/>',
+          resolve : {
+            rolesRes : ['Roles', function(Roles) {
+              return Roles.getList();
+            }],
+            orgsRes :['Organizations', function(Organizations) {
+              return Organizations.getList();
+            }]
+          }
+      }).state('dashboard.users.list', {
+          url : '/list',
+          templateUrl : 'views/sys/users/list.html',
+          controller : 'UserListCtrl'
+      }).state('dashboard.users.detail', {
+          url : '/update/:id',
+          templateUrl : 'views/sys/users/edit.html',
+          controller : 'UserDetailCtrl',
+          resolve : {
+            usersRes : ['Users', '$stateParams', function(Users, $stateParams) {
+              return Users.one($stateParams.id).get();
+            }]
+          }
+      }).state('dashboard.users.create', {
+          url : '/create',
+          templateUrl : 'views/sys/users/edit.html',
+          controller : 'UserCreationCtrl'
       }).state('dashboard.chart',{
           templateUrl:'views/chart.html',
           url:'/chart',

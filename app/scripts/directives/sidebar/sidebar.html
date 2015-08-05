@@ -8,8 +8,16 @@
       <li ng-class="{active: collapseVar==1}">
         <a href="" ng-click="check(1)"><i class="fa fa-wrench fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
         <ul class="nav nav-second-level" collapse="collapseVar!=1">
-          <li ui-sref-active="active">
-          <a ui-sref="dashboard.users">用户管理</a>
+          <li ng-class="{active: multiCollapseVar==1}">
+            <a href="" ng-click="multiCheck(1)">用户管理 <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level" collapse="multiCollapseVar!=1">
+              <li ui-sref-active="active">
+              <a ui-sref="dashboard.users.list">用户列表</a>
+              </li>
+              <li ui-sref-active="active">
+              <a ui-sref="dashboard.users.create">新建用户</a>
+              </li>
+            </ul>
           </li>
         </ul>
         <!-- /.nav-second-level -->
@@ -46,6 +54,3 @@
   </div>
   <!-- /.sidebar-collapse -->
 </div>
-
-
-

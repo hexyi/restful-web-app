@@ -151,16 +151,16 @@ angular.module('webSiteApp')
       $scope.deleteUser = function() {
         $scope.user.remove().then(function() {
           $window.alert('用户 ' + $scope.user.username + ' 已删除');
-          $state.go('dashboard.users');
+          $state.go('dashboard.users.list');
         });
       };
       $scope.cancel = function() {
-        $state.go('dashboard.users');
+        $state.go('dashboard.users.list');
       };
       $scope.updateUser = function() {
         $scope.user.put().then(function() {
           $window.alert('用户 ' + $scope.user.username + ' 已更新');
-          $state.go('dashboard.users');
+          $state.go('dashboard.users.list');
         });
       };
     } ])
