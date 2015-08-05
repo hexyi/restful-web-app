@@ -1,10 +1,6 @@
 {
-  "name": "sb-admin",
-  "version": "0.0.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/start-angular/sb-admin-angular"
-  },
+  "name": "jeews",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
