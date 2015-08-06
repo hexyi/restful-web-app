@@ -114,17 +114,18 @@ body {
     content: "\f107";
 }
 
-.sidebar .nav-second-level li,
-.sidebar .nav-third-level li {
+.sidebar .nav-indent {
+    padding-left: 20px;
+}
+.sidebar .nav-indent li {
     border-bottom: 0!important;
 }
 
-.sidebar .nav-second-level li a {
-    padding-left: 37px;
-}
-
-.sidebar .nav-third-level li a {
-    padding-left: 52px;
+.nav-indent .nav > li.active > a,
+.nav-indent .nav > li > a:focus,.nav-indent .nav > li > a:hover {
+    text-decoration: none;
+    color: #444;
+    background-color:#F8F8F8;
 }
 
 @media(min-width:768px) {

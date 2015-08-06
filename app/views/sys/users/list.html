@@ -18,7 +18,7 @@
                 <button class="btn btn-default" type="button" name="refresh" ng-click="tableParams.sorting({})" title="刷新列表">
                   <i class="glyphicon glyphicon-refresh icon-refresh"> </i>
                 </button>
-                <button class="btn btn-default" type="button" name="add" ui-sref="dashboard.users.create" title="添加用户">
+                <button class="btn btn-default" type="button" name="add" ui-sref="dashboard.sys.users.create" title="添加用户">
                   <i class="glyphicon glyphicon-plus icon-plus"> </i>
                 </button>
                 <button class="btn btn-danger" type="button" name="trash" ng-click="deleteSelected()" title="删除选中项">
@@ -52,7 +52,7 @@
                 </td>
                 <td data-title="'id'" sortable="'id'" width="5%">{{user.id}}</td>
                 <td data-title="'用户名'" sortable="'username'" filter="{ 'username': 'text' }" width="18%">
-                  <span ng-if="!user.$edit"><a ui-sref="dashboard.users.detail({ id: user.id })">{{user.username}}</a></span>
+                  <span ng-if="!user.$edit"><a ui-sref="dashboard.sys.users.detail({ id: user.id })">{{user.username}}</a></span>
                   <div ng-if="user.$edit">
                     <input type="text" class="form-control" id="name" name="name" ng-model="user.username" placeholder="用户名由字母、数字、下划线组成，以字母开头，3-30个字符" required ng-pattern="/^[A-Za-z]{1}[0-9A-Za-z_]{2,29}$/" msg-pattern="手机号长度应该为11" xt-validation-tooltip>
                   </div>

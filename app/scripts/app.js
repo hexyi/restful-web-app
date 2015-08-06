@@ -113,17 +113,23 @@ angular
           templateUrl: 'views/dashboard/main.html',
           resolve: {
             loadMyDirectives:function($ocLazyLoad){
-              return $ocLazyLoad.load(
-              {
-                name:'webSiteApp',
-                files:[
-                'scripts/directives/header/resize.js',
-                'scripts/directives/header/header.js',
-                'scripts/directives/header/header-notification/header-notification.js',
-                'scripts/directives/sidebar/sidebar.js',
-                'scripts/directives/sidebar/sidebar-search/sidebar-search.js'
-                ]
-              });
+              return $ocLazyLoad.load([
+                {
+                  name:'sidemenu',
+                  files:[
+                  'scripts/directives/sidebar/sidemenu.js'
+                  ]
+                },
+                {
+                  name:'webSiteApp',
+                  files:[
+                  'scripts/directives/header/resize.js',
+                  'scripts/directives/header/header.js',
+                  'scripts/directives/header/header-notification/header-notification.js',
+                  'scripts/directives/sidebar/sidebar.js',
+                  'scripts/directives/sidebar/sidebar-search/sidebar-search.js'
+                  ]
+                }]);
           }
         }
       }).state('dashboard.home',{
@@ -146,7 +152,11 @@ angular
           templateUrl:'views/pages/login.html',
           url:'/login',
           controller : 'LoginCtrl'
-      }).state('dashboard.users', {
+      }).state('dashboard.sys', {
+          abstract: true,
+          url: '/sys',
+          template: '<ui-view/>'
+      }).state('dashboard.sys.users', {
           abstract: true,
           url: '/users',
           template: '<ui-view/>',
@@ -158,11 +168,11 @@ angular
               return Organizations.getList();
             }]
           }
-      }).state('dashboard.users.list', {
+      }).state('dashboard.sys.users.list', {
           url : '/list',
           templateUrl : 'views/sys/users/list.html',
           controller : 'UserListCtrl'
-      }).state('dashboard.users.detail', {
+      }).state('dashboard.sys.users.detail', {
           url : '/update/:id',
           templateUrl : 'views/sys/users/edit.html',
           controller : 'UserDetailCtrl',
@@ -171,10 +181,31 @@ angular
               return Users.one($stateParams.id).get();
             }]
           }
-      }).state('dashboard.users.create', {
+      }).state('dashboard.sys.users.create', {
           url : '/create',
           templateUrl : 'views/sys/users/edit.html',
           controller : 'UserCreationCtrl'
+      }).state('dashboard.sys.roles', {
+          abstract: true,
+          url: '/roles',
+          template: '<ui-view/>'
+      }).state('dashboard.sys.roles.list', {
+          url : '/list',
+          templateUrl : 'views/sys/roles/list.html',
+      }).state('dashboard.sys.orgs', {
+          abstract: true,
+          url: '/orgs',
+          template: '<ui-view/>'
+      }).state('dashboard.sys.orgs.list', {
+          url : '/list',
+          templateUrl : 'views/sys/orgs/list.html',
+      }).state('dashboard.sys.menus', {
+          abstract: true,
+          url: '/menus',
+          template: '<ui-view/>'
+      }).state('dashboard.sys.menus.list', {
+          url : '/list',
+          templateUrl : 'views/sys/menus/list.html',
       }).state('dashboard.chart',{
           templateUrl:'views/chart.html',
           url:'/chart',
@@ -230,4 +261,7 @@ angular
           $state.go('dashboard.home');
         }
       });
+
+      //主要是在侧边栏使用 用来根据当前状态，设置菜单的激活状态
+      $rootScope.$state = $state;
     } ]);

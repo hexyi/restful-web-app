@@ -1,23 +1,32 @@
 <div class="navbar-default sidebar" role="navigation">
   <div class="sidebar-nav navbar-collapse">
-    <ul class="nav in" id="side-menu">
-      <sidebar-search></sidebar-search>
-      <li ui-sref-active="active">
-      <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> 管理控制台</a>
-      </li>
-      <li ng-class="{active: $state.includes('**.users.**')}">
-        <a href="" ng-click="toggle(1)"><i class="fa fa-wrench fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level" collapse="isClose(1)">
-          <li ng-class="{active: $state.includes('**.users.**')}">
-            <a ui-sref="dashboard.users.list">用户管理</a>
-          </li>
-        </ul>
-        <!-- /.nav-second-level -->
-      </li>
-      <li ui-sref-active="active">
-      <a ui-sref="dashboard.chart"><i class="fa fa-bar-chart-o fa-fw"></i> 表格<span></span></a>
-      </li>
-    </ul>
+    <sidebar-search></sidebar-search>
+    <sidemenu ng-init="oneAtATime = true" close-others="oneAtATime">
+      <sidemenu-group heading="管理控制台" ng-init="isHome=$state.includes('dashboard.home');" is-open="isHome" ng-class="{active: isHome}" ui-sref="dashboard.home" icon="dashboard">
+      </sidemenu-group>
+      <sidemenu-group heading="系统管理" node="true" ng-init="isSys=$state.includes('**.sys.**')" is-open="isSys" ng-class="{active: isSys}" icon="wrench">
+        <sidemenu close-others="oneAtATime">
+          <sidemenu-group heading="用户管理" ng-init="isUsers=$state.includes('**.users.**')" is-open="isUsers" ui-sref="dashboard.sys.users.list" ng-class="{active: isUsers}">
+          </sidemenu-group>
+          <sidemenu-group heading="角色管理" ng-init="isRoles=$state.includes('**.roles.**')" is-open="isRoles" ui-sref="dashboard.sys.roles.list" ng-class="{active: isRoles}">
+          </sidemenu-group>
+          <sidemenu-group heading="组织管理" ng-init="isOrgs=$state.includes('**.orgs.**')" is-open="isOrgs" ui-sref="dashboard.sys.orgs.list" ng-class="{active: isOrgs}">
+          </sidemenu-group>
+          <sidemenu-group heading="菜单管理" ng-init="isMenus=$state.includes('**.menus.**')" is-open="isMenus" ui-sref="dashboard.sys.menus.list" ng-class="{active: isMenus}">
+          </sidemenu-group>
+        </sidemenu>
+      </sidemenu-group>
+      <sidemenu-group heading="内容管理" node="true" icon="edit">
+        <sidemenu close-others="oneAtATime">
+          <sidemenu-group heading="文章管理">
+          </sidemenu-group>
+          <sidemenu-group heading="评论管理">
+          </sidemenu-group>
+        </sidemenu>
+      </sidemenu-group>
+      <sidemenu-group heading="图表" ui-sref="dashboard.chart" ng-init="isChart=$state.includes('dashboard.chart');" is-open="isChart" ng-class="{active: isChart}" icon="bar-chart-o">
+      </sidemenu-group>
+    </sidemenu>
   </div>
   <!-- /.sidebar-collapse -->
 </div>
