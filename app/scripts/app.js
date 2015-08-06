@@ -112,7 +112,7 @@ angular
           url:'/dashboard',
           templateUrl: 'views/dashboard/main.html',
           resolve: {
-            loadMyDirectives:function($ocLazyLoad){
+            loadMyDirectives:['$ocLazyLoad',function($ocLazyLoad){
               return $ocLazyLoad.load(
                 {
                   name:'webSiteApp',
@@ -125,14 +125,14 @@ angular
                   'scripts/directives/sidebar/sidebar-search/sidebar-search.js'
                   ]
                 });
-          }
+          }]
         }
       }).state('dashboard.home',{
           url:'/home',
           controller: 'MainCtrl',
           templateUrl:'views/dashboard/home.html',
           resolve: {
-            loadMyFiles:function($ocLazyLoad) {
+            loadMyFiles:['$ocLazyLoad',function($ocLazyLoad){
               return $ocLazyLoad.load({
                 name:'webSiteApp',
                 files:[
@@ -141,7 +141,7 @@ angular
                 'scripts/directives/dashboard/stats/stats.js'
                 ]
               });
-            }
+            }]
           }
       }).state('login',{
           templateUrl:'views/pages/login.html',
@@ -206,7 +206,7 @@ angular
           url:'/chart',
           controller:'ChartCtrl',
           resolve: {
-            loadMyFile:function($ocLazyLoad) {
+            loadMyFile:['$ocLazyLoad',function($ocLazyLoad){
               return $ocLazyLoad.load([{
                 name:'chart.js',
                 files:[
@@ -218,7 +218,7 @@ angular
                   name:'webSiteApp',
                   files:['scripts/controllers/chartContoller.js']
               }]);
-            }
+            }]
           }
       });
 

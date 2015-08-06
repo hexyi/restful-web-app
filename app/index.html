@@ -9,10 +9,10 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <!-- endbower -->
+    <!-- endinject -->
     <!-- endbuild -->
 
-    <!-- build:css(.tmp) styles/main.css -->
+    <!-- inject:css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/admin.css">
     <link rel="stylesheet" href="styles/style.css">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
     <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css">
-    <!-- endbuild -->
+    <!-- endinject -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -39,10 +39,10 @@
     <script src="bower_components/xtform/dist/xtForm.tpl.js"></script>
     <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-    <!-- endbower -->
+    <!-- endinject -->
     <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- inject:js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/services/Storage.js"></script>
     <script src="scripts/directives/forms/forms.js"></script>
@@ -52,7 +52,7 @@
     <script src="scripts/sys/service/OrganizationService.js"></script>
     <script src="scripts/sys/service/RoleService.js"></script>
     <script src="scripts/sys/service/UserService.js"></script>
-    <!-- endbuild -->
+    <!-- endinject -->
 
 
 

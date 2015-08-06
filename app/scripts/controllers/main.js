@@ -7,5 +7,5 @@
  * Controller of the webSiteApp
  */
 angular.module('webSiteApp')
-  .controller('MainCtrl', function($scope,$position) {
-  });
+  .controller('MainCtrl', ['$scope','$position', function($scope,$position) {
+  }]);
