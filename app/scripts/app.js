@@ -113,23 +113,18 @@ angular
           templateUrl: 'views/dashboard/main.html',
           resolve: {
             loadMyDirectives:function($ocLazyLoad){
-              return $ocLazyLoad.load([
-                {
-                  name:'sidemenu',
-                  files:[
-                  'scripts/directives/sidebar/sidemenu.js'
-                  ]
-                },
+              return $ocLazyLoad.load(
                 {
                   name:'webSiteApp',
                   files:[
                   'scripts/directives/header/resize.js',
                   'scripts/directives/header/header.js',
                   'scripts/directives/header/header-notification/header-notification.js',
+                  'scripts/directives/sidebar/sidemenu.js',
                   'scripts/directives/sidebar/sidebar.js',
                   'scripts/directives/sidebar/sidebar-search/sidebar-search.js'
                   ]
-                }]);
+                });
           }
         }
       }).state('dashboard.home',{

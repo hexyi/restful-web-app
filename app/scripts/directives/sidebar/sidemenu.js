@@ -1,5 +1,6 @@
+'use strict';
 // see ui.bootstrap.accordion
-angular.module('sidemenu', ["template/sidemenu/sidemenu.html","template/sidemenu/sidemenu-group.html","template/sidemenu/sidemenu-group-leaf.html"])
+angular.module('webSiteApp')
 
 .constant('sidemenuConfig', {
   closeOthers: true
@@ -51,7 +52,7 @@ angular.module('sidemenu', ["template/sidemenu/sidemenu.html","template/sidemenu
     transclude: true,
     replace: false,
     templateUrl: function(element, attrs) {
-      return attrs.templateUrl || 'template/sidemenu/sidemenu.html';
+      return attrs.templateUrl || 'scripts/directives/sidebar/sidemenu.html';
     }
   };
 })
@@ -65,9 +66,9 @@ angular.module('sidemenu', ["template/sidemenu/sidemenu.html","template/sidemenu
     replace: true,                // The element containing the directive will be replaced with the template
     templateUrl: function(element, attrs) {
       if (attrs.node) {//if it is not a leaf node
-        return attrs.templateUrl || 'template/sidemenu/sidemenu-group.html';
+        return attrs.templateUrl || 'scripts/directives/sidebar/sidemenu-group.html';
       } else {
-        return attrs.templateUrl || 'template/sidemenu/sidemenu-group-leaf.html';
+        return attrs.templateUrl || 'scripts/directives/sidebar/sidemenu-group-leaf.html';
       }
     },
     scope: {
@@ -140,23 +141,3 @@ angular.module('sidemenu', ["template/sidemenu/sidemenu.html","template/sidemenu
 })
 
 ;
-angular.module("template/sidemenu/sidemenu-group.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/sidemenu/sidemenu-group.html",
-    "<li>\n" +
-    "  <a href ng-click=\"toggleOpen()\" sidemenu-transclude=\"heading\"><i class=\"fa fa-{{icon?icon:'circle-o'}} fa-fw\"></i><span> {{heading}}</span><span class=\"fa arrow\"></span></a>\n" +
-    "  <ul class=\"nav nav-indent collapse\" collapse=\"!isOpen\" ng-transclude>\n" +
-    "  </ul>\n" +
-    "</li>\n" +
-    "");
-}]);
-angular.module("template/sidemenu/sidemenu-group-leaf.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/sidemenu/sidemenu-group-leaf.html",
-    "<li>\n" +
-    "  <a href ng-click=\"toggleOpen()\" sidemenu-transclude=\"heading\"><i class=\"fa fa-{{icon?icon:'circle-o'}} fa-fw\"></i><span> {{heading}}</span></a>\n" +
-    "</li>\n" +
-    "");
-}]);
-angular.module("template/sidemenu/sidemenu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/sidemenu/sidemenu.html",
-    "<ul class=\"nav in\" ng-transclude></ul>");
-}]);
