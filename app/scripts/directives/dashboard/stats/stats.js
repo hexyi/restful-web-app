@@ -22,6 +22,6 @@ angular.module('webSiteApp')
         'type':'@',
         'goto':'@'
   		}
-  		
-  	}
+
+  	};
   });

@@ -32,12 +32,12 @@ angular.module('webSiteApp')
     };
 
     $scope.donut = {
-    	labels: ["Download Sales", "In-Store Sales", "Mail-Order Sales"],
+    	labels: ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'],
     	data: [300, 500, 100]
     };
 
     $scope.radar = {
-    	labels:["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    	labels:['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
 
     	data:[
     	    [65, 59, 90, 81, 56, 55, 40],
@@ -46,17 +46,17 @@ angular.module('webSiteApp')
     };
 
     $scope.pie = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales"],
+    	labels : ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'],
     	data : [300, 500, 100]
     };
 
     $scope.polar = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"],
+    	labels : ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'Tele Sales', 'Corporate Sales'],
     	data : [300, 500, 100, 40, 120]
     };
 
     $scope.dynamic = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"],
+    	labels : ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'Tele Sales', 'Corporate Sales'],
     	data : [300, 500, 100, 40, 120],
     	type : 'PolarArea',
 

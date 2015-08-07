@@ -6,11 +6,11 @@ angular.module('webSiteApp')
     require : 'ngModel',
     link : function(scope, element, attrs, ngModel) {
       ngModel.$parsers.push(function(value) {
-        ngModel.$setValidity('match', value == scope.$eval(attrs.matchValidator));
+        ngModel.$setValidity('match', value === scope.$eval(attrs.matchValidator));
         return value;
       });
     }
-  }
+  };
 })
 .directive('udRequired', function() {
   return {
@@ -24,7 +24,7 @@ angular.module('webSiteApp')
 })
 .directive('ngEnter', function() {//http://eric.sau.pe/angularjs-detect-enter-key-ngenter/
   return function(scope, element, attrs) {
-    element.bind("keydown keypress", function(event) {
+    element.bind('keydown keypress', function(event) {
       if (event.which === 13) {
         scope.$apply(function() {
           scope.$eval(attrs.ngEnter);

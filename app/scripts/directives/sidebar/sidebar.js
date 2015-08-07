@@ -8,10 +8,10 @@
  */
 
 angular.module('webSiteApp')
-  .directive('sidebar',['$state',function($state) {
+  .directive('sidebar', function() {
     return {
       templateUrl:'scripts/directives/sidebar/sidebar.html',
       restrict: 'E',
       replace: true
-    }
-  }]);
+    };
+  });

@@ -12,7 +12,7 @@ angular.module('webSiteApp')
         templateUrl:'scripts/directives/notifications/notifications.html',
         restrict: 'E',
         replace: true,
-    	}
+    	};
 	});
 
 

@@ -15,8 +15,8 @@ angular.module('webSiteApp')
       replace: true,
       scope: {
       },
-      controller:function($scope){
+      controller:['$scope', function($scope){
         $scope.selectedMenu = 'home';
-      }
-    }
+      }]
+    };
   });

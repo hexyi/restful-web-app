@@ -34,12 +34,12 @@ angular.module('webSiteApp')
             size : count,
             sort : sort
           };
-          if ($scope.search.query != '') {
-            if($scope.selectedKey.id == 'username') {
+          if ($scope.search.query !== '') {
+            if($scope.selectedKey.id === 'username') {
                 query.username = $scope.search.query;
-            } else if($scope.selectedKey.id == 'email') {
+            } else if($scope.selectedKey.id === 'email') {
                 query.email = $scope.search.query;
-            } else if($scope.selectedKey.id == 'mobile') {
+            } else if($scope.selectedKey.id === 'mobile') {
                 query.mobile = $scope.search.query;
             }
           }
@@ -80,19 +80,20 @@ angular.module('webSiteApp')
           checked += ($scope.checkboxes.items[item.id]) || 0;
           unchecked += (!$scope.checkboxes.items[item.id]) || 0;
         });
-        if ((unchecked == 0) || (checked == 0)) {
-          $scope.checkboxes.checked = (checked == total);
+        if ((unchecked === 0) || (checked === 0)) {
+          $scope.checkboxes.checked = (checked === total);
         }
         // grayed checkbox
-        angular.element(document.getElementById("select_all")).prop(
-            "indeterminate", (checked != 0 && unchecked != 0));
+        angular.element(document.getElementById('select_all')).prop(
+            'indeterminate', (checked !== 0 && unchecked !== 0));
       }, true);
 
       //删除选中
       $scope.deleteSelected = function() {
         var selected = _.map($scope.checkboxes.items, function(num, key) {
-          if (num === true)
+          if (num === true) {
             return key;
+          }
         });
         if (selected.length > 0) { // should have selected some items
           Users.removeSelected(selected).then(function(){
@@ -111,7 +112,7 @@ angular.module('webSiteApp')
       $scope.editUser = function(userToEdit) {
         $scope.master = angular.copy(userToEdit);
         userToEdit.$edit = true;
-      }
+      };
 
       $scope.cancel = function(index) {
         $scope.users[index] = angular.copy($scope.master);

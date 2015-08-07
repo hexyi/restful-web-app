@@ -8,13 +8,13 @@ angular.module('webSiteApp')
 })
 .filter('arrayField', function() {
   return function(inputArray, attr) {
-    var res = "";
+    var res = '';
     for (var i = 0; i < inputArray.length; i++) {
       var tmp = inputArray[i];
-      res += tmp[attr] + " ";
+      res += tmp[attr] + ' ';
     }
     return res;
-  }
+  };
 })
 /**
  * AngularJS default filter with the following expression:

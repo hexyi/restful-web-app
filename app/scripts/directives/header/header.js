@@ -12,7 +12,7 @@ angular.module('webSiteApp')
         templateUrl:'scripts/directives/header/header.html',
         restrict: 'E',
         replace: true,
-    	}
+    	};
 	});
 
 

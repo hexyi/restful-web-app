@@ -12,5 +12,5 @@ angular.module('webSiteApp')
         templateUrl:'scripts/directives/timeline/timeline.html',
         restrict: 'E',
         replace: true,
-    }
+    };
   });

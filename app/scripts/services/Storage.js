@@ -3,7 +3,7 @@
 angular.module('webSiteApp')
 .factory('Storage',['localStorageService', 'jwtHelper', function(localStorageService, jwtHelper) {
   var storageKey = 'access_token';
-  var userKey = "current_user";
+  var userKey = 'current_user';
   return {    
     setToken : function(token) {
       return localStorageService.set(storageKey, token);

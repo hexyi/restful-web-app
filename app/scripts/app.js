@@ -32,9 +32,9 @@ angular
       function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,
         $httpProvider, RestangularProvider, xtFormConfigProvider, jwtInterceptorProvider) {
       // jwt 配置，会在每次请求头部加上令牌
-      jwtInterceptorProvider.tokenGetter = function(Storage) {
+      jwtInterceptorProvider.tokenGetter = ['Storage', function(Storage) {
         return Storage.getToken();
-      }
+      }];
       $httpProvider.interceptors.push('jwtInterceptor');
 
       // 全局配置
@@ -59,14 +59,13 @@ angular
       // 给所有后端 API 请求设置 baseUrl
       RestangularProvider.setBaseUrl('http://localhost:8080/jeews');
       RestangularProvider.setDefaultHeaders({
-        "Content-Type" : 'application/json',
-        "Accept" : 'application/hal+json'
+        'Content-Type' : 'application/json',
+        'Accept' : 'application/hal+json'
       });
       RestangularProvider.setRestangularFields({
-        selfLink : "_links.self.href"
+        selfLink : '_links.self.href'
       });
-      RestangularProvider.setOnElemRestangularized(function(elem, isCollection,
-          what, Restangular) {
+      RestangularProvider.setOnElemRestangularized(function(elem, isCollection, what, Restangular) {
         for ( var rel in elem._links) {
           if (rel !== 'curies') {
             var index = rel.indexOf(':');
@@ -89,7 +88,7 @@ angular
       RestangularProvider.addResponseInterceptor(function(data, operation,
           what, url, response, deferred) {
         var returnData;
-        if (_.has(data, "_embedded")) {
+        if (_.has(data, '_embedded')) {
           returnData = _.values(data._embedded)[0];
           returnData.links = data._links;
           returnData.page = data.page;
@@ -138,6 +137,7 @@ angular
                 files:[
                 'scripts/controllers/main.js',
                 'scripts/directives/notifications/notifications.js',
+                'scripts/directives/forms/forms.js',
                 'scripts/directives/dashboard/stats/stats.js'
                 ]
               });
@@ -210,7 +210,7 @@ angular
               return $ocLazyLoad.load([{
                 name:'chart.js',
                 files:[
-                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                  'bower_components/angular-chart.js/dist/angular-chart.js',
                   'bower_components/angular-chart.js/dist/angular-chart.css'
                 ]
               },
@@ -234,19 +234,19 @@ angular
       //http://stackoverflow.com/questions/21445886/angularjs-change-url-in-module-config
       Restangular.setErrorInterceptor(function(response, deferred,
           responseHandler) {
-        if (response.status == 401 || response.status == 403) {
-          console.log("Login required... ");
+        if (response.status === 401 || response.status === 403) {
+          console.log('Login required... ');
           Storage.clear();
           $state.go('login');
-        } else if (response.status == 404) {
-          console.log("Resource not available...");
+        } else if (response.status === 404) {
+          console.log('Resource not available...');
         } else {
-          console.log("Response received with HTTP error code: " + response.status);
+          console.log('Response received with HTTP error code: ' + response.status);
         }
         return false; // stop the promise chain
       });
       $rootScope.$on('$stateChangeStart', function(e, to) {
-        if (to.name != 'login' && !Storage.isLoggedIn()) {
+        if (to.name !== 'login' && !Storage.isLoggedIn()) {
           e.preventDefault();
           $state.go('login');
         }

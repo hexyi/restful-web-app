@@ -7,13 +7,13 @@ angular.module('webSiteApp')
 .directive('resize', ['$window', function($window) {
   return {
     restrict: 'A',
-    controller:function($scope){
+    controller:['$scope', function($scope){
       var w = angular.element($window);
       $scope.isCollapsed = false;
       $scope.changeState = function() {
         $scope.isCollapsed = !$scope.isCollapsed;
       };
-      
+
       var pageEl = angular.element(document.getElementById('page-wrapper'));
       w.bind('load resize', function() {
         var topOffset = 50;
@@ -27,13 +27,15 @@ angular.module('webSiteApp')
 
         var height = (($window.innerHeight > 0) ? $window.innerHeight : screen.height) - 1;
         height = height - topOffset;
-        if (height < 1) height = 1;
+        if (height < 1) {
+          height = 1;
+        }
         if (height > topOffset) {
-          pageEl.css("min-height", (height) + "px");
+          pageEl.css('min-height', (height) + 'px');
         }
         // when resize apply isCollapsed change
         $scope.$apply();
       });
-    }
-  }
+    }]
+  };
 }]);

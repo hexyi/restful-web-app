@@ -1,7 +1,6 @@
 /*global -$ */
 'use strict';
 /*
- * gulp 3.9
  * - app
  *   - scripts
  *   - styles
@@ -10,7 +9,6 @@
  * - .tmp
  * - bower_components
  */
-//npm install --save-dev gulp gulp-filter gulp-flatten gulp-imagemin gulp-jshint gulp-minify-css gulp-uglify gulp-sourcemaps gulp-useref main-bower-files gulp-load-plugins gulp-clean gulp-cache gulp-concat gulp-rev-all gulp-rename gulp-beautify gulp-size gulp-inject gulp-if gulp-replace gulp-liveload wiredep imagemin-pngquant del
 
 var gulp = require('gulp'),
     del = require('del'),
@@ -50,7 +48,8 @@ gulp.task('clean', function (cb) {
 gulp.task('templates', function () {
   return gulp.src(paths.src + files.templates)
     .pipe($.angularTemplatecache({root:'scripts/', module:'webSiteApp'}))
-    .pipe(gulp.dest(paths.tmp + 'templates'));
+    .pipe(gulp.dest(paths.tmp + 'templates'))
+    .pipe($.size({title: 'templates', gzip: true}));
 });
 //验证js
 gulp.task('jshint', function () {
@@ -58,16 +57,14 @@ gulp.task('jshint', function () {
     .pipe($.jshint())
     .pipe($.jshint.reporter('default'));
 });
-//合并压缩js
+//压缩js
 gulp.task('scripts', ['jshint', 'templates'], function() {
-  return gulp.src([paths.src + files.scripts, paths.tmp + 'templates/templates.js'])
+  return gulp.src([paths.src + files.scripts, paths.tmp + 'templates/*.js'])
     .pipe($.sourcemaps.init())
-    .pipe($.concat('main.js'))    //合并所有js到main.js
-    .pipe(gulp.dest(paths.dist +'scripts'))    //输出main.js到文件夹
-    .pipe($.rename({suffix: '.min'}))   //rename压缩后的文件名
     .pipe($.uglify())    //压缩
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist + 'scripts'));
+    .pipe(gulp.dest(paths.dist + 'scripts'))
+    .pipe($.size({title: 'scripts', gzip: true}));
 });
 //压缩图片 使用cache插件只有新建或修改过的图片才会压缩
 gulp.task('images', function() {
@@ -79,7 +76,8 @@ gulp.task('images', function() {
       interlaced: true,
       use: [pngquant()]
     })))
-    .pipe(gulp.dest(paths.dist+ 'images'));
+    .pipe(gulp.dest(paths.dist+ 'images'))
+    .pipe($.size({title: 'images', gzip: true}));
 });
 //压缩css
 gulp.task('styles', function() {
@@ -93,82 +91,52 @@ gulp.task('styles', function() {
     .pipe($.rename({suffix: '.min'}))   //rename压缩后的文件名
     .pipe($.minifyCss())   //执行压缩
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.dist + 'styles'));
+    .pipe(gulp.dest(paths.dist + 'styles'))
+    .pipe($.size({title: 'styles', gzip: true}));
 });
-//拷贝bower下的资源文件到目标目录
-gulp.task('bower',function() {
-  var jsF = $.filter(jsFilter),
-      cssF = $.filter(cssFilter),
-      fontF = $.filter(fontFilter);
-  return gulp.src(mainBowerFiles())
-      .pipe(jsF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(tmp+'js'))
-      .pipe(jsF.restore())
-      .pipe(cssF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(tmp+'css'))
-      .pipe(cssF.restore())
-      .pipe(fontF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(tmp+'fonts'));
-});
-//赋值src文件到tmp中
-gulp.task('copy',function() {
-  return gulp.src(paths.src + '**/*')
-        .pipe(gulp.dest(paths.tmp));
-});
-//release 压缩css js 图片
-gulp.task('collect',['bower','copy'],function(cb) {
-    //在任务定义的function中传入callback变量，当callback()执行时，任务结束。
-  cb();
-});
-// 压缩后的css和js插入模板文件
-gulp.task('inject2', ['styles', 'scripts', 'images'], function() {
-  var target = gulp.src(paths.src + '**/*.html');
-  var sources = gulp.src([paths.dist + '**/*.min.js', paths.dist + '**/*.min.css'], {read: false});
-  return target.pipe($.inject(sources, {addRootSlash:false, ignorePath:'dist'}))
-      //删除标记和空行
-      .pipe($.replace(/([ \t]*<!--\s*(bower|inject):*\S*\s*-->)((\n|\r|.)*?)(<!--\s*endinject\s*-->)/gi,'$3'))
-      .pipe($.replace(/^[\t ]*\n/mg,''))
-      .pipe(gulp.dest(paths.dist))
-      .pipe($.size({title: 'app', gzip: true}));
+gulp.task('less', function() {
+  return gulp.src([paths.src + 'styles/vendor.less'])
+    .pipe($.sourcemaps.init())
+    .pipe($.less())
+    .pipe($.rename({suffix: '.min'}))
+    .pipe($.minifyCss())
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(paths.dist + 'styles'))
+    .pipe($.size({title: 'less', gzip: true}));
 });
 // 压缩后的资源文件和bower中的资源文件插入模板文件
 // 添加return可以告知gulp任务已经结束，否则后续任务依赖当前任务的输出文件的话可能有问题
-// flatten可以去掉一些相对路径，使所有文件在一个目标目录下
-gulp.task('inject', ['styles', 'scripts', 'images'], function() {
+gulp.task('inject', ['styles', 'scripts', 'images', 'less'], function() {
   var jsF = $.filter(filters.scripts),
       cssF = $.filter(filters.styles),
       fontF = $.filter(filters.fonts);
-  var bowerSources = gulp.src(mainBowerFiles())
+  var bowerSources = gulp.src(mainBowerFiles(), {base: "."}) //保持目录结构 https://github.com/gulpjs/gulp/issues/151#issuecomment-41508551
       .pipe(jsF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(paths.dist+'scripts'))
+      .pipe(gulp.dest(paths.dist))
+      .pipe($.size({title: 'bower scripts', gzip: true}))
       .pipe(jsF.restore())
       .pipe(cssF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(paths.dist+'styles'))
+      .pipe(gulp.dest(paths.dist))
+      .pipe($.size({title: 'bower styles', gzip: true}))
       .pipe(cssF.restore())
       .pipe(fontF)
-      .pipe($.flatten())
-      .pipe(gulp.dest(paths.dist+'fonts'))
+      .pipe(gulp.dest(paths.dist))
+      .pipe($.size({title: 'bower fonts', gzip: true}))
       .pipe(fontF.restore());
-  var sources = gulp.src([paths.dist + '**/*.min.js', paths.dist + '**/*.min.css'], {read: false});
+  var sources = gulp.src([paths.dist + '**/templates.js', paths.dist + 'styles/vendor.min.css', paths.dist + 'styles/main.min.css'], {read: false});
   var target = gulp.src([paths.src + '**/*.html','!' + paths.src + files.templates]);
-  return target.pipe($.inject(bowerSources.pipe($.filter(['**/*','!**/jquery.min.js','!**/bootstrap.js'])), {name: 'bower',addRootSlash:false, ignorePath:'dist/'}))
+  return target.pipe($.inject(bowerSources.pipe($.filter(['**/*','!**/jquery.js','!**/bootstrap.js','!**/*angular-chart*'])), {name: 'bower',addRootSlash:false, ignorePath:'dist/'}))
       .pipe($.inject(sources, {addRootSlash:false, ignorePath:'dist'}))
       //删除标记和空行
       .pipe($.replace(/([ \t]*<!--\s*(bower|inject):*\S*\s*-->)((\n|\r|.)*?)(<!--\s*endinject\s*-->)/gi,'$3'))
       .pipe($.replace(/^[\t ]*\n/mg,''))
       .pipe(gulp.dest(paths.dist))
-      .pipe($.size({title: 'app', gzip: true}));
+      .pipe($.size({title: 'html', gzip: true}));
 });
 //默认任务
 gulp.task('default',['clean'], function () {
   gulp.start('inject');
 });
-//监听文件
 gulp.task('serve', function () {
   // Serve files from the root of this project
   browserSync.init({
@@ -183,4 +151,14 @@ gulp.task('serve', function () {
   });
 
   gulp.watch([paths.src + '**/*']).on('change', browserSync.reload);
+});
+gulp.task('serve:dist', ['default'], function () {
+  browserSync.init({
+    server: {
+      baseDir: paths.dist
+    },
+    host: server.host,
+    port: server.port
+  });
+
 });
