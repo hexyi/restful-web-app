@@ -18,7 +18,7 @@ npm install
 bower install
 ```
 
-执行`gulp serve` 可以在浏览器中查看运行效果
+执行`gulp serve`前需要先部署好后端服务，之后就可以在浏览器中查看运行效果了
 
 [jee-restful-web]: https://github.com/howiefh/jee-restful-web
 [sb-admin-angular]: https://github.com/start-angular/sb-admin-angular

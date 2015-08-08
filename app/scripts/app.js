@@ -57,7 +57,7 @@ angular
         match: '两次输入的密码不匹配'
       });
       // 给所有后端 API 请求设置 baseUrl
-      RestangularProvider.setBaseUrl('http://localhost:8080/jeews');
+      RestangularProvider.setBaseUrl('http://localhost:8080/jee-restful-web');
       RestangularProvider.setDefaultHeaders({
         'Content-Type' : 'application/json',
         'Accept' : 'application/hal+json'
