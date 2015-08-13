@@ -13,7 +13,7 @@
 
 ```
 git clone https://github.com/howiefh/restful-web-app.git
-cd ws-app
+cd restful-web-app
 npm install
 bower install
 ```
